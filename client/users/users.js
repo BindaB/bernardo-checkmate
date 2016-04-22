@@ -4,7 +4,9 @@ Template.users.onCreated( function() {
 
 Template.users.helpers({
   users: function() {
-    return Meteor.users.find({ username: { $not: (Meteor.user() || {}).username } }); // returns all users except signed in player
+    return Meteor.users.find({
+      username: { $not: (Meteor.user() || {}).username }
+    });
   }
 });
 
