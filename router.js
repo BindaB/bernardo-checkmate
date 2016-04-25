@@ -11,3 +11,10 @@ FlowRouter.route('/users', {
     BlazeLayout.render('layout', { child: 'users' });
   }
 });
+
+FlowRouter.route('/games', {
+  name: 'games',
+  action() {
+    BlazeLayout.render('layout', { child: 'games' });
+  }
+});
