@@ -18,3 +18,10 @@ FlowRouter.route('/games', {
     BlazeLayout.render('layout', { child: 'games' });
   }
 });
+
+FlowRouter.route('/games/:id', {
+  name: 'game',
+  action() {
+    BlazeLayout.render('layout', { child: 'game' });
+  }
+});
