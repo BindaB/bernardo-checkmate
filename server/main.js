@@ -10,3 +10,7 @@ Meteor.publish('games', function() {
 Meteor.publish('game', function (gameId) {
   return Games.find({_id: gameId});
 });
+
+Meteor.publish('chat', function (gameId) {
+  return Conversations.find({game: gameId});
+});

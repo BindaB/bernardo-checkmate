@@ -1,0 +1,14 @@
+<template name='chat'>
+  {{#if Template.subscriptionsReady}}
+    <div class='chat'>
+      <ul>
+        {{#each m in message}}
+          <li class='{{getClass m.name}}'>
+            {{m.text}}
+          </li>
+        {{/each}}
+      </ul>
+      <input type='text' id='message'/>
+    </div>
+  {{/if}}
+</template>
