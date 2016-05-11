@@ -1,7 +1,6 @@
 Template.queues.onCreated( function () {
   this.subscribe('users');
   this.subscribe('queues');
-  this.subscribe('games');
 });
 
 Template.queues.helpers({
@@ -21,8 +20,12 @@ Template.queues.helpers({
     return friends.length ? Meteor.users.find({_id: {$in: friends} } ) : null;
   },
 
+  accepted: function() {
+    return this.haveAccepted.length >= 1;
+  },
+
   currentQueues: function() {
-    return Queues.find({$or: [{createdBy: Meteor.userId()}, {needsConfirmation: Meteor.userId()}]});
+    return Queues.find({$or: [{createdBy: Meteor.userId()}, {needsConfirmation: Meteor.userId()}, {haveAccepted: Meteor.userId()}]});
   },
 
 /*  archivedGames: function(){
@@ -50,15 +53,16 @@ Template.queues.events({
     var qOppArray = selected.map(function(item) {
       return item.value;
     });
-    console.log('here');
-    Meteor.call('createQueue', evt.target.qOption.value, qOppArray);
+    Meteor.call('createQueue', qOppArray);
   },
 
   'click #accept': function(evt) {
-    Meteor.call('acceptGame', this._id);
+    var index = $.inArray(Meteor.userId(), this.needsConfirmation)
+    Meteor.call('acceptQueue', this._id, this.needsConfirmation, index);
   },
 
   'click #decline': function(evt) {
-      Meteor.call('declineGame', this._id);
+      var index = $.inArray(Meteor.userId(), this.needsConfirmation)
+      Meteor.call('declineQueue', this._id, this.needsConfirmation, index);
   }
 });

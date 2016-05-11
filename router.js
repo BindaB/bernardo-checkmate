@@ -32,3 +32,10 @@ FlowRouter.route('/queues', {
     BlazeLayout.render('layout', { child: 'queues' });
   }
 });
+
+FlowRouter.route('/queues/:id', {
+  name: 'queue',
+  action() {
+    BlazeLayout.render('layout', { child: 'queue' });
+  }
+});

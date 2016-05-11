@@ -1,0 +1,25 @@
+<template name='queue'>
+  {{#if Template.subscriptionsReady}}
+    <div class='row'>
+      <div class='col-sm-4'>
+        {{> board rows}}
+      </div>
+
+      <div class='col-sm-4'>
+        {{#if result}}
+          <h2>{{result}}</h2>
+        {{else}}
+          <h2>Currently, {{currentTurn}}'s turn</h2>
+        {{/if}}
+
+        <h3>Moves</h3>
+        {{> stepper result}}
+        {{> moveList moves}}
+      </div>
+
+      <div class='col-sm-4'>
+        {{> chat}}
+      </div>
+    </div>
+  {{/if}}
+</template>

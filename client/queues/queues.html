@@ -5,19 +5,12 @@
       {{#if possibleQueue}}
         <form class='form-inline'>
            <label> Start a queue with </label>
-           <select id='qOpp' multiple='multiple' name='otherPlayers[]' class='form-control'>
+           <select required id='qOpp' multiple='multiple' name='otherPlayers[]' class='form-control'>
             {{#each opp in possibleOpponents}}
               <option value='{{opp._id}}'>
                 {{opp.username}}
               </option>
             {{/each}}
-           </select>
-
-           <label>I will </label>
-           <select name='qOption' class='form-control'>
-             <option value='w'> Play White </option>
-             <option value='b'> Play Black </option>
-             <option value='q'> Stay In Queue </option>
            </select>
 
            <button class='btn btn-primary'> Create Queue</button>
@@ -40,10 +33,16 @@
                 <button id='accept' class='btn btn-xs btn-success'> Accept </button>
                 <button id='decline' class='btn btn-xs btn-warning'> Decline </button>
               {{else}}
-                Game between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)
+                {{#if haveAccepted}}
+                  <a href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends</a>
+                {{else}}
+                  Queue between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)
+                {{/if}}
               {{/if}}
             {{else}}
-              <a href='/queues/{{_id}}'>Game between {{username w}} and {{username b}}</a>
+              {{#if accepted}}
+                <a href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends (all have accepted!)</a>
+              {{/if}}
             {{/if}}
           </li>
         {{/each}}
