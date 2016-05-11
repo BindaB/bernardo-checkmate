@@ -14,3 +14,8 @@ Meteor.publish('game', function (gameId) {
 Meteor.publish('chat', function (gameId) {
   return Conversations.find({game: gameId});
 });
+
+Meteor.publish('queues', function() {
+  this.userId;
+  return Queues.find({$or: [{b: this.userId}, {w: this.userId}, {q: this.userId}]});
+})

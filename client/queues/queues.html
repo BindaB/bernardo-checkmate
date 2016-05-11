@@ -1,0 +1,64 @@
+<template name='queues'>
+  {{#requireLogin}}
+    {{#if Template.subscriptionsReady}}
+      <h2>Queue Chess</h2>
+      {{#if possibleQueue}}
+        <form class='form-inline'>
+           <label> Start a queue with </label>
+           <select id='qOpp' multiple='multiple' name='otherPlayers[]' class='form-control'>
+            {{#each opp in possibleOpponents}}
+              <option value='{{opp._id}}'>
+                {{opp.username}}
+              </option>
+            {{/each}}
+           </select>
+
+           <label>I will </label>
+           <select name='qOption' class='form-control'>
+             <option value='w'> Play White </option>
+             <option value='b'> Play Black </option>
+             <option value='q'> Stay In Queue </option>
+           </select>
+
+           <button class='btn btn-primary'> Create Queue</button>
+        </form>
+
+        {{else}}
+          <p>
+            Before starting a queue you need to make some friends,
+            or you've already started a queue.
+          </p>
+      {{/if}}
+
+      <h2>Current Queue</h2>
+      <ul>
+        {{#each currentQueues}}
+          <li>
+            {{#if needsConfirmation}}
+              {{#if byMe}}
+                Game request from {{username createdBy}}
+                <button id='accept' class='btn btn-xs btn-success'> Accept </button>
+                <button id='decline' class='btn btn-xs btn-warning'> Decline </button>
+              {{else}}
+                Game between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)
+              {{/if}}
+            {{else}}
+              <a href='/queues/{{_id}}'>Game between {{username w}} and {{username b}}</a>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+
+<!--IMPLEMENT LATER?      <h2>Archived Games</h2>
+      <ul>
+        {{#each archivedGames}}
+          <li>
+            <a href='/queues/{{_id}}'> {{username w}} vs. {{username b}} ({{result}})</a>
+          </li>
+        {{/each}}
+      </ul>-->
+    {{else}}
+      {{> spinner}}
+    {{/if}}
+  {{/requireLogin}}
+</template>

@@ -25,7 +25,7 @@ Template.games.helpers({
 
   archivedGames: function(){
     return Games.find({result: {$not: null}}).map(function (game) {
-      if (game.result !== 'draw') game.result = getUsername(game.result) + 'won';
+      if (game.result !== ' draw') game.result = getUsername(game.result) + ' won';
       return game;
     });
   },
