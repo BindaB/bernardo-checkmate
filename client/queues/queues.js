@@ -5,7 +5,6 @@ Template.queues.onCreated( function () {
 
 Template.queues.helpers({
   possibleQueue: function() {
-    var user = Meteor.user();
     if(Queues.find({createdBy: Meteor.userId()}).count() === 0) {
       return true;
     }

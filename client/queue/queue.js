@@ -4,15 +4,14 @@ Template.queue.onCreated(function() {
     this.subscribe('queue', FlowRouter.getParam('id'));
     //maybe have some way of swapping multiple game boards in one URL 5.1
   });
-
-  var player1 = Queues.find({_id: FlowRouter.getParam('id')}, {queue: {$slice: -1}}).queue;
-  Queues.update({_id: FlowRouter.getParam('id')}, {$pop: {queue: -1}});
-  var player2 = Queues.find({_id: FlowRouter.getParam('id')}, {queue: {$slice: -1}});
-  Queues.update({_id: FlowRouter.getParam('id')}, {$pop: {queue: -1}});
-  Queues.update({_id: FlowRouter.getParam('id')}, {$set: {activePlayers: []}});
 });
 
 Template.queue.helpers({
+  activePlayers: function() {
+    Meteor.call('hasActivePlayers', FlowRouter.getParam('id'));
+    return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {activePlayers: {$not: {$size: 0}}}]}).count() > 0;
+  },
+
   currentTurn: function() {
     var game = getGame();
     return getUsername(game[game.board.split(' ')[1]]);

@@ -1,7 +1,10 @@
 <template name='queue'>
   {{#if Template.subscriptionsReady}}
-    <div class='row'>
-      <div class='col-sm-4'>
+    {{#if activePlayers}}
+     <h2>Stuff</h2>
+    {{/if}}
+  <!--  <div class='row'>
+      <div class='col-sm-12'>
         {{> board rows}}
       </div>
 
@@ -17,9 +20,13 @@
         {{> moveList moves}}
       </div>
 
-      <div class='col-sm-4'>
+      <div class='col-sm-12'>
         {{> chat}}
       </div>
     </div>
+-->
   {{/if}}
+</template>
+
+<template name='colorPicker'>
 </template>

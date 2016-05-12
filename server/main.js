@@ -17,7 +17,7 @@ Meteor.publish('chat', function (gameId) {
 
 Meteor.publish('queues', function() {
   this.userId;
-  return Queues.find({$or: [{b: this.userId}, {w: this.userId}, {q: this.userId}]});
+  return Queues.find({$or: [{createdBy: this.userId}, {needsConfirmation: this.userId}, {haveAccepted: this.userId}]});
 });
 
 Meteor.publish('queue', function(queueId) {
