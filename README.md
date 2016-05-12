@@ -4,6 +4,7 @@ The user has to just sign up with basic username and password, and then add frie
 previous matches and step through, move by move, the match as if it was being played out in front of them live. This website uses the wonderful Makula Chess API built by Jeff Hlywa which can be found at https://github.com/jhlywa/chess.js. Users can also start up a 'Chess Queue' with their friends, where all invited friends will be placed in a queue, with the first two to accept being put in a match against one another. When one loses, the person at the front of the queue replaces the loser, and the loser goes to the back of the queue.
 
 TO ADD
+
 -Forgot password
 
 -OAuth for Facebook and Google login
