@@ -5,9 +5,15 @@ previous matches and step through, move by move, the match as if it was being pl
 
 TO ADD
 -Forgot password
+
 -OAuth for Facebook and Google login
+
 -Tournament Chess
+
 -Spectators for games
+
 -User Profiles
+
 -Two-way friend requests/confirmations
+
 -Deselection of selected piece if user clicks on a different valid piece
