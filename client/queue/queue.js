@@ -7,9 +7,17 @@ Template.queue.onCreated(function() {
 });
 
 Template.queue.helpers({
-  activePlayers: function() {
+  colorsPicked: function() {
+    return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {$or: [{w: null}, {b: null}]}]}).count() > 0;
+  },
+
+  haveActivePlayers: function() {
     Meteor.call('hasActivePlayers', FlowRouter.getParam('id'));
     return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {activePlayers: {$not: {$size: 0}}}]}).count() > 0;
+  },
+
+  amActivePlayer: function() {
+    return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {activePlayers: {$in: [Meteor.userId()]}}]}).count() > 0;
   },
 
   currentTurn: function() {
@@ -65,7 +73,7 @@ Template.queue.events({
       } else {
         var move = canMove(selectedData.cell, this.cell);
         if (move) {
-          Meteor.call('makeMove', data._id, move);
+          Meteor.call('makeQueueMove', data._id, move);
           deselect();
         }
       }
@@ -80,7 +88,11 @@ Template.queue.events({
         return curr.indexOf(to) > -1 ? curr: false;
       }, false);
     }
-  }
+  },
+
+  'click #forfeit': function() {
+    Meteor.call('playerForfeit', FlowRouter.getParam('id'), Meteor.userId())
+  },
 });
 
 function select(node, data) {
@@ -171,5 +183,31 @@ Template.stepper.events({
 
   'click #next': function (evt) {
     Session.set('moveIndex', Session.get('moveIndex') + 1);
+  }
+});
+
+Template.colorPicker.helpers({
+  whiteTaken: function() {
+    return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: null}]}).count() !== 0;
+  },
+
+  blackTaken: function() {
+    return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {b: null}]}).count() !== 0;
+  }
+});
+
+Template.colorPicker.events({
+  'click #white': function(evt) {
+    if(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {b: Meteor.userId()}]}).count() > 0) {
+      return;
+    }
+    Meteor.call('whitePicked', FlowRouter.getParam('id'), 'w');
+  },
+
+  'click #black': function(evt) {
+    if(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: Meteor.userId()}]}).count() > 0) {
+      return;
+    }
+    Meteor.call('blackPicked', FlowRouter.getParam('id'), 'w');
   }
 });

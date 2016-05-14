@@ -1,32 +1,50 @@
 <template name='queue'>
   {{#if Template.subscriptionsReady}}
-    {{#if activePlayers}}
-     <h2>Stuff</h2>
-    {{/if}}
-  <!--  <div class='row'>
-      <div class='col-sm-12'>
-        {{> board rows}}
-      </div>
-
-      <div class='col-sm-4'>
-        {{#if result}}
-          <h2>{{result}}</h2>
-        {{else}}
-          <h2>Currently, {{currentTurn}}'s turn</h2>
+    {{#if haveActivePlayers}}
+      {{#if amActivePlayer}}
+        {{#if colorsPicked}}
+          <h2>Colors Have Not Been Picked</h2>
+          {{> colorPicker}}
         {{/if}}
+      {{/if}}
 
-        <h3>Moves</h3>
-        {{> stepper result}}
-        {{> moveList moves}}
-      </div>
+      {{#unless colorsPicked}}
+        <div class='row'>
+          <div class='col-sm-12'>
+            {{> board rows}}
+          </div>
 
-      <div class='col-sm-12'>
-        {{> chat}}
-      </div>
-    </div>
--->
+          <div class='col-sm-4'>
+            {{#if result}}
+              <h2>{{result}}</h2>
+            {{else}}
+              <h2>Currently, {{currentTurn}}'s turn</h2>
+            {{/if}}
+
+            <h3>Moves</h3>
+            {{> stepper result}}
+            {{> moveList moves}}
+            <button id='forfeit' class='btn btn-primary'>Forfeit</button>
+          </div>
+
+          <div class='col-sm-12'>
+            {{> chat}}
+          </div>
+        </div>
+      {{/unless}}
+    {{/if}}
   {{/if}}
 </template>
 
 <template name='colorPicker'>
+  <h3>Please pick a color</h3>
+
+  <div class='btn-group'>
+    {{#if whiteTaken}}
+      <button id='white' class='btn btn-default'> White</button>
+    {{/if}}
+    {{#if blackTaken}}
+      <button id='black' class='btn btn-default'> Black</button>
+    {{/if}}
+  </div>
 </template>
