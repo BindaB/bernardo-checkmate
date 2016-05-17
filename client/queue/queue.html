@@ -24,7 +24,9 @@
             <h3>Moves</h3>
             {{> stepper result}}
             {{> moveList moves}}
-            <button id='forfeit' class='btn btn-primary'>Forfeit</button>
+            {{#if amActivePlayer}}
+              <button id='forfeit' class='btn btn-primary'>Forfeit</button>
+            {{/if}}
           </div>
 
           <div class='col-sm-12'>

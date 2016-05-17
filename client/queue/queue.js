@@ -7,6 +7,7 @@ Template.queue.onCreated(function() {
 });
 
 Template.queue.helpers({
+
   colorsPicked: function() {
     return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {$or: [{w: null}, {b: null}]}]}).count() > 0;
   },
@@ -73,7 +74,10 @@ Template.queue.events({
       } else {
         var move = canMove(selectedData.cell, this.cell);
         if (move) {
-          Meteor.call('makeQueueMove', data._id, move);
+          var gameOver = Meteor.call('makeQueueMove', data._id, move);
+          if(gameOver) {
+            chess = new Chess();
+          }
           deselect();
         }
       }
@@ -92,6 +96,7 @@ Template.queue.events({
 
   'click #forfeit': function() {
     Meteor.call('playerForfeit', FlowRouter.getParam('id'), Meteor.userId())
+    chess = new Chess();
   },
 });
 
