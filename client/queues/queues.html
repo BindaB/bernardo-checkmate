@@ -1,9 +1,12 @@
 <template name='queues'>
+  <div class='container'>
+
+  </div>
   {{#requireLogin}}
     {{#if Template.subscriptionsReady}}
-      <h2>Queue Chess</h2>
+      <h2 class='white relative'>Queue Chess</h2>
       {{#if possibleQueue}}
-        <form class='form-inline'>
+        <form class='white center form-inline'>
            <label> Start a queue with </label>
            <select required id='qOpp' multiple='multiple' name='otherPlayers[]' class='form-control'>
             {{#each opp in possibleOpponents}}

@@ -23,6 +23,7 @@ Template.queue.helpers({
 
   currentTurn: function() {
     var game = getGame();
+    console.log(game);
     return getUsername(game[game.board.split(' ')[1]]);
   },
 

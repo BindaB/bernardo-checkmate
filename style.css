@@ -1,3 +1,101 @@
+* {
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.nav > li > a {
+  padding-left: 20px;
+}
+
+table {
+  background-color: white;
+}
+
+#turn-label {
+  padding-bottom: 10px;
+}
+
+.top {
+  padding-top: 70px;
+  margin: 0px;
+}
+
+b.caret {
+   margin-right: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.landing-page-title {
+  font-weight: 700;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 5em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.intro-social-buttons {
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+@media(max-width:767px) {
+    .intro-message {
+        padding-bottom: 15%;
+    }
+
+    .intro-message > h1 {
+        font-size: 3em;
+    }
+
+    ul.intro-social-buttons > li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.intro-social-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+
+    .intro-divider {
+        width: 100%;
+    }
+}
+
+html {
+  background: url('/chess-black-and-white-wallpaper-for-iphone.jpg') no-repeat center center fixed ;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: transparent;
+}
+
 table {
     border: 1px solid #ccc;
     font-size: 25px;
@@ -69,6 +167,8 @@ td.selected {
     clear: both;
     text-align: center;
     font-style: italic;
+    color: black;
+    background: white;
 }
 
 .me {
@@ -79,8 +179,55 @@ td.selected {
 }
 
 .them {
-    color: #191919;
-    background: #E5E5EA;
+    color: white;
+    background: #F02D2D;
     float: left;
     clear: both;
+}
+
+#navbar {
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 100%;
+}
+
+nav.navbar.navbar-default {
+  color: white;
+  background-color: #272727;
+}
+
+@media only screen and (max-width: 1000px) {
+  #login-dropdown-list a {
+    padding: 15px 10px 0px 0px;
+  }
+}
+
+div#navigation {
+  font-size: 20px;
+}
+
+nav.navbar.navbar-default li:hover {
+  color: white;
+}
+
+li {
+  font-size: 20px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  background-color: #464444;
+  color: white;
+}
+
+.white {
+  color: white;
+}
+
+.welcome {
+  font-size:24px;
+  background-color:#464444;
 }

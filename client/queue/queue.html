@@ -10,23 +10,23 @@
 
       {{#unless colorsPicked}}
         <div class='row'>
+          {{#if result}}
+            <h1 class='top white center'>{{result}}</h1>
+          {{else}}
+            <h1 id='turn-label' class='top white center'>Currently {{currentTurn}}'s turn</h1>
+          {{/if}}
+
           <div class='col-sm-12'>
             {{> board rows}}
           </div>
 
           <div class='col-sm-4'>
-            {{#if result}}
-              <h2>{{result}}</h2>
-            {{else}}
-              <h2>Currently, {{currentTurn}}'s turn</h2>
-            {{/if}}
-
-            <h3>Moves</h3>
-            {{> stepper result}}
-            {{> moveList moves}}
             {{#if amActivePlayer}}
-              <button id='forfeit' class='btn btn-primary'>Forfeit</button>
+              <button id='forfeit' class='btn btn-default'>Forfeit</button>
+              <button id='draw' class='btn btn-default'>Offer Draw</button>
             {{/if}}
+            <h3 class='movesLabel text-center'>Moves</h3>
+            {{> moveList moves}}
           </div>
 
           <div class='col-sm-12'>
@@ -39,7 +39,7 @@
 </template>
 
 <template name='colorPicker'>
-  <h3>Please pick a color</h3>
+  <h3 class='pickLabel'>Please pick a color</h3>
 
   <div class='btn-group'>
     {{#if whiteTaken}}

@@ -12,7 +12,7 @@
           <h2>Currently, {{currentTurn}}'s turn</h2>
         {{/if}}
 
-        <h3>Moves</h3>
+        <h3 class='movesLabel'>Moves</h3>
         {{> stepper result}}
         {{> moveList moves}}
       </div>
@@ -39,7 +39,7 @@
 
 <template name='moveList'>
   {{#each move in this}}
-    <li>{{move}}</li>
+    <li class='moveLabel text-center'>{{move}}</li>
   {{/each}}
 </template>
 
