@@ -12,6 +12,24 @@ Template.queue.helpers({
     return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {$or: [{w: null}, {b: null}]}]}).count() > 0;
   },
 
+  myTurn: function() {
+    var game = getGame();
+    if(getUsername(game[game.board.split(' ')[1]]) === Meteor.user().username) {
+      return true;;
+    }
+    return false;
+  },
+
+  amWhite: function() {
+    console.log(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: Meteor.userId()}]}).count());
+    if(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: Meteor.userId()}]}).count() > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  },
+
   haveActivePlayers: function() {
     Meteor.call('hasActivePlayers', FlowRouter.getParam('id'));
     return Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {activePlayers: {$not: {$size: 0}}}]}).count() > 0;
@@ -23,7 +41,9 @@ Template.queue.helpers({
 
   currentTurn: function() {
     var game = getGame();
-    console.log(game);
+    if(getUsername(game[game.board.split(' ')[1]]) === Meteor.user().username) {
+      return 'Your';
+    }
     return getUsername(game[game.board.split(' ')[1]]);
   },
 
@@ -96,9 +116,13 @@ Template.queue.events({
   },
 
   'click #forfeit': function() {
-    Meteor.call('playerForfeit', FlowRouter.getParam('id'), Meteor.userId())
+    Meteor.call('playerForfeit', FlowRouter.getParam('id'), Meteor.userId());
     chess = new Chess();
   },
+
+  'click #offer-draw': function() {
+    //Meteor.call('acceptedDraw', FlowRouter.getParam('id'));
+  }
 });
 
 function select(node, data) {
@@ -164,33 +188,7 @@ function getMoves() {
     moves = moves.slice(0, Session.get('moveIndex'));
   }
   return moves;
-}
-
-Template.stepper.helpers({
-  canStep: function(result) {
-    return result && !Session.get('stepping');
-  },
-
-  stepping: function() {
-    return Session.get('stepping');
-  }
-});
-
-Template.stepper.events({
-  'click #step': function (evt) {
-    Session.set('stepping', true);
-    Session.set('moveIndex', 0);
-  },
-
-  'click #prev': function (evt) {
-    var idx = Session.get('moveIndex');
-    Session.set('moveIndex', idx <= 0 ? 0 : idx-1);
-  },
-
-  'click #next': function (evt) {
-    Session.set('moveIndex', Session.get('moveIndex') + 1);
-  }
-});
+};
 
 Template.colorPicker.helpers({
   whiteTaken: function() {

@@ -21,7 +21,9 @@ Template.chat.events({
     if(evt.target.value === '') return;
     if(evt.keyCode !== 13) return;
 
-    Meteor.call('addMessage', evt.target.value, instance.id());
+    var message = Meteor.user().username + ': ' + evt.target.value;
+
+    Meteor.call('addMessage', message, instance.id());
 
     evt.target.value = '';
 

@@ -3,17 +3,33 @@
     {{#if haveActivePlayers}}
       {{#if amActivePlayer}}
         {{#if colorsPicked}}
-          <h2>Colors Have Not Been Picked</h2>
+          <h2 class='white'>Colors Have Not Been Picked</h2>
           {{> colorPicker}}
         {{/if}}
       {{/if}}
 
       {{#unless colorsPicked}}
-        <div class='row'>
+        <div class='row no-select'>
           {{#if result}}
             <h1 class='top white center'>{{result}}</h1>
           {{else}}
-            <h1 id='turn-label' class='top white center'>Currently {{currentTurn}}'s turn</h1>
+            {{#if amActivePlayer}}
+              {{#if myTurn}}
+                {{#if amWhite}}
+                  <h1 id='turn-label' class='top white center'>&#9822; {{currentTurn}} turn</h1>
+                {{else}}
+                  <h1 id='turn-label' class='top black center'>&#9822; <span class='white'>{{currentTurn}} turn</span></h1>
+                {{/if}}
+              {{else}}
+                {{#if amWhite}}
+                  <h1 id='turn-label' class='top black center'>&#9822; <span class='white'>{{currentTurn}}'s turn</span></h1>
+                {{else}}
+                  <h1 id='turn-label' class='top white center'>&#9822; {{currentTurn}}'s turn</h1>
+                {{/if}}
+              {{/if}}
+            {{else}}
+              <h1 id='turn-label' class='top white center'>&#9822; You are spectating a match!</h1>
+            {{/if}}
           {{/if}}
 
           <div class='col-sm-12'>
@@ -23,9 +39,9 @@
           <div class='col-sm-4'>
             {{#if amActivePlayer}}
               <button id='forfeit' class='btn btn-default'>Forfeit</button>
-              <button id='draw' class='btn btn-default'>Offer Draw</button>
+              <button id='offer-draw' class='btn btn-default'>Offer Draw</button>
             {{/if}}
-            <h3 class='movesLabel text-center'>Moves</h3>
+            <h3 class='white movesLabel text-center'>Moves</h3>
             {{> moveList moves}}
           </div>
 
@@ -39,7 +55,7 @@
 </template>
 
 <template name='colorPicker'>
-  <h3 class='pickLabel'>Please pick a color</h3>
+  <h3 class='white pickLabel'>Please pick a color</h3>
 
   <div class='btn-group'>
     {{#if whiteTaken}}

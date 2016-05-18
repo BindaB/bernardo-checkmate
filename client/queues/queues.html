@@ -20,31 +20,31 @@
         </form>
 
         {{else}}
-          <p>
+          <p class='white'>
             Before starting a queue you need to make some friends,
             or you've already started a queue.
           </p>
       {{/if}}
 
-      <h2>Current Queue</h2>
+      <h2 class='white'>Current Queue</h2>
       <ul>
         {{#each currentQueues}}
           <li>
             {{#if needsConfirmation}}
               {{#if byMe}}
-                Game request from {{username createdBy}}
+                <span class='white'>Game request from {{username createdBy}}</span>
                 <button id='accept' class='btn btn-xs btn-success'> Accept </button>
                 <button id='decline' class='btn btn-xs btn-warning'> Decline </button>
               {{else}}
                 {{#if haveAccepted}}
                   <a href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends</a>
                 {{else}}
-                  Queue between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)
+                  <span class='white'>Queue between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)</span>
                 {{/if}}
               {{/if}}
             {{else}}
               {{#if accepted}}
-                <a href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends (all have accepted!)</a>
+                <a class='white' href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends (all have accepted!)</a>
               {{/if}}
             {{/if}}
           </li>
