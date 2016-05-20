@@ -6,7 +6,7 @@
     {{#if Template.subscriptionsReady}}
       <h2 class='white relative'>Queue Chess</h2>
       {{#if possibleQueue}}
-        <form class='white center form-inline'>
+        <form class='white form-inline'>
            <label> Start a queue with </label>
            <select required id='qOpp' multiple='multiple' name='otherPlayers[]' class='form-control'>
             {{#each opp in possibleOpponents}}
@@ -37,7 +37,7 @@
                 <button id='decline' class='btn btn-xs btn-warning'> Decline </button>
               {{else}}
                 {{#if haveAccepted}}
-                  <a href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends</a>
+                  <a class='white' href='/queues/{{_id}}'>Queue between {{username createdBy}} and friends</a>
                 {{else}}
                   <span class='white'>Queue between {{username createdBy}} and friends (Waiting for confirmation by at least one friend)</span>
                 {{/if}}

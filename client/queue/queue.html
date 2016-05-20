@@ -9,40 +9,41 @@
       {{/if}}
 
       {{#unless colorsPicked}}
-        <div class='row no-select'>
-          {{#if result}}
-            <h1 class='top white center'>{{result}}</h1>
-          {{else}}
-            {{#if amActivePlayer}}
-              {{#if myTurn}}
-                {{#if amWhite}}
-                  <h1 id='turn-label' class='top white center'>&#9822; {{currentTurn}} turn</h1>
-                {{else}}
-                  <h1 id='turn-label' class='top black center'>&#9822; <span class='white'>{{currentTurn}} turn</span></h1>
-                {{/if}}
+        <div class='row'>
+          {{#if amActivePlayer}}
+            {{#if myTurn}}
+              {{#if amWhite}}
+                <h1 class='top white turn-label'><span class='versus'>{{players}}</span> <span class='turn-title'>&#9822; {{currentTurn}} turn</span></h1>
               {{else}}
-                {{#if amWhite}}
-                  <h1 id='turn-label' class='top black center'>&#9822; <span class='white'>{{currentTurn}}'s turn</span></h1>
-                {{else}}
-                  <h1 id='turn-label' class='top white center'>&#9822; {{currentTurn}}'s turn</h1>
-                {{/if}}
+                <h1 class='top black center'><span class='versus'>{{players}}</span> <span class='turn-title'>&#9822; <span class='white'>{{currentTurn}} turn</span></span></h1>
               {{/if}}
             {{else}}
-              <h1 id='turn-label' class='top white center'>&#9822; You are spectating a match!</h1>
+              {{#if amWhite}}
+                <h1 class='top black center'><span class='versus'>{{players}}</span> <span class='turn-title'>&#9822; <span class='white'>{{currentTurn}}'s turn</span></span></h1>
+              {{else}}
+                <h1 class='top white center'><span class='versus'>{{players}}</span><span class='turn-title'>&#9822; {{currentTurn}}'s turn</span></h1>
+              {{/if}}
             {{/if}}
+          {{else}}
+            <h1 class='top white center'><span class='versus'>{{players}}</span> <span class='turn-title'>You are spectating a match!</span></h1>
           {{/if}}
 
           <div class='col-sm-12'>
             {{> board rows}}
-          </div>
-
-          <div class='col-sm-4'>
+            <div class='moves-chat'>
+              <ul id='system-list'>
+                {{#each m in system}}
+                  <li class='system'>
+                    {{m.text}}
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
             {{#if amActivePlayer}}
               <button id='forfeit' class='btn btn-default'>Forfeit</button>
               <button id='offer-draw' class='btn btn-default'>Offer Draw</button>
+              <span class='next-up'>{{nextUp}}</span>
             {{/if}}
-            <h3 class='white movesLabel text-center'>Moves</h3>
-            {{> moveList moves}}
           </div>
 
           <div class='col-sm-12'>

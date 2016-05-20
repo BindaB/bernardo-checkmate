@@ -2,6 +2,7 @@ Template.queue.onCreated(function() {
   this.autorun(() => {
     this.subscribe('users');
     this.subscribe('queue', FlowRouter.getParam('id'));
+    this.subscribe('chat', FlowRouter.getParam('id'));
     //maybe have some way of swapping multiple game boards in one URL 5.1
   });
 });
@@ -20,8 +21,32 @@ Template.queue.helpers({
     return false;
   },
 
+  system: function() {
+    return Conversations.findOne({ game: FlowRouter.getParam('id')}).system;
+  },
+
+  nextUp: function() {
+    var queuePlayers = Queues.find({_id: FlowRouter.getParam('id')}).fetch()[0].queue;
+    var players = 'Next Up: ';
+    for(var i=0; i<queuePlayers.length; i++) {
+      if(i===queuePlayers.length-1) {
+        players = players + getUsername(queuePlayers[i]);
+      }
+      else {
+        players = players + getUsername(queuePlayers[i]) + ', ';
+      }
+    }
+    return players;
+  },
+
+  players: function() {
+    var w = Queues.find({_id: FlowRouter.getParam('id')}).fetch()[0].w;
+    var b = Queues.find({_id: FlowRouter.getParam('id')}).fetch()[0].b;
+    var players = getUsername(w) + ' vs. ' + getUsername(b);
+    return players;
+  },
+
   amWhite: function() {
-    console.log(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: Meteor.userId()}]}).count());
     if(Queues.find({$and: [{_id: FlowRouter.getParam('id')}, {w: Meteor.userId()}]}).count() > 0) {
       return true;
     }
@@ -95,7 +120,7 @@ Template.queue.events({
       } else {
         var move = canMove(selectedData.cell, this.cell);
         if (move) {
-          var gameOver = Meteor.call('makeQueueMove', data._id, move);
+          var gameOver = Meteor.call('makeQueueMove', data._id, move, Meteor.user().username);
           if(gameOver) {
             chess = new Chess();
           }

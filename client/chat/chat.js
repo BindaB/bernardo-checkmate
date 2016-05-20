@@ -9,8 +9,7 @@ Template.chat.helpers({
   },
 
   getClass: function(name) {
-    if(name === 'system') return 'system';
-    else if(name === Meteor.user().username) return 'me';
+    if(name === Meteor.user().username) return 'me';
     else return 'them';
   }
 });
@@ -26,6 +25,17 @@ Template.chat.events({
     Meteor.call('addMessage', message, instance.id());
 
     evt.target.value = '';
-
   }
 });
+
+/*
+Template.system.helpers({
+  message: function() {
+    return Conversations.
+  },
+
+  getClass: function() {
+      if(name === 'system') return 'system';
+  }
+});
+*/
